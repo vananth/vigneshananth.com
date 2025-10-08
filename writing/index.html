@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Writing - Vignesh Ananth</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <nav class="main-nav">
+    <a href="/" class="nav-link">me</a>
+    <span class="nav-separator">|</span>
+    <a href="/writing" class="nav-link active">writing</a>
+  </nav>
+
+  <h1>Writing</h1>
+
+  <p class="writing-intro">I write to crystallize my thinking on things I've spent time on.</p>
+
+  <div id="writing-list"></div>
+
+  <script>
+    fetch('/writing-index.json')
+      .then(response => response.json())
+      .then(posts => {
+        const container = document.getElementById('writing-list');
+        posts.forEach(post => {
+          const article = document.createElement('article');
+          article.className = 'writing-item';
+          article.innerHTML = `
+            <h2><a href="${post.url}">${post.title}</a></h2>
+            <p class="post-meta">${post.date}</p>
+            <p class="post-excerpt">${post.excerpt}</p>
+          `;
+          container.appendChild(article);
+        });
+      })
+      .catch(error => console.error('Error loading posts:', error));
+  </script>
+
+</body>
+</html>

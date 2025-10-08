@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Evals Are An Appreciating Asset - Vignesh Ananth</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <nav class="main-nav">
+    <a href="/" class="nav-link">me</a>
+    <span class="nav-separator">|</span>
+    <a href="/writing" class="nav-link">writing</a>
+  </nav>
+
+  <h1>Evals Done Right Are An Appreciating Asset</h1>
+  <p class="post-meta"> 2025</p>
+  
+
+  <p>I've been thinking about where evals fit into product development and how they interact with A/B tests. The problem: when an LLM sits in a product's critical path, A/B testing alone stops working. It tells you that engagement dropped, not what broke. This post is about why evals have become essential, how they differ from traditional A/B testing, and why building a robust eval set is actually a competitive advantage in a world where building something new has never been cheaper.</p>
+
+  <p>A/B tests have always been the final word on whether something worked. Ship a change, split traffic, and let the numbers decide. This worked really well when products were deterministic, when buttons turned blue every time and algorithms ranked posts the same way for everyone.</p>
+
+  <p>With LLMs, that's changed.</p>
+
+  <p>New AI agents and products have an LLM in the critical path now, writing emails or summarizing documents or answering customer questions. This makes the core logic no longer deterministic. Each user will have a different experience depending on what the LLM spits out during their interaction with the product.</p>
+
+  <p>This breaks the old A/B testing model. Assume a team swaps from GPT-5 to Claude Opus, runs an A/B test, and engagement drops 5%. How do they find out what happened?</p>
+
+  <p>Before, the approach was to dig into the data, build out some funnels, and see where drop-off was introduced and iterate on the experience. Now, the test says something got worse, but it doesn't say what. Maybe the summarization quality dropped. Maybe tool calls improved but tone got weird, or there's an edge case affecting 2% of users that makes them leave entirely. It's essentially debugging a black box.</p>
+
+  <p>Building AI agents is simpler than people let on. There are really only three things that determine behavior: the system prompt/prompt, the model itself, and the software guardrails around it. Change any of these things and the behavior of the product changes. Additionally, with the rise of coding agents, the marginal cost of software is now zero, so there are a lot more things to test than before.</p>
+
+  <p>But that freedom is useless without knowing which variants work and why.</p>
+
+  <p>Evals fill this gap. They are often referred to as unit tests for AI, or CI/CD for the AI age, but that's a limited way to look at them. Indeed, they serve a similar function, but they are so much more. They're the place to encode two really important things: the soul of the product, how it should feel, and what "working" means for a product.</p>
+
+  <p>Take a concrete example: an AI research assistant that reads academic papers. It extracts key points, answers questions, compares related papers, and summarizes findings in different styles. The eval set tests things like: does it extract methodology correctly? Does it call the PDF parser without breaking? Are summaries the right length and tone? What happens with poorly formatted PDFs? Does it hallucinate citations?</p>
+
+  <p>Want to swap models, maybe to something newer, or an OSS model that is cheaper? Run the eval set first. The new model might be better at methodology extraction but worse at matching casual tone. It might hallucinate citations on edge cases. Fix the tone with prompt engineering, add guardrails for citations, run evals again. Once it passes, then A/B test to get user feedback. And if there's a regression, trace that back through the eval, or add to the eval.</p>
+
+  <p>The crucial part is that eval sets are never done. They are like test cases that you always have to write when you build software. Start with test cases based on what seems important, then users hit the product and you log where things go well and where they break. Add those cases to the eval set. It keeps growing as new edge cases appear and users interact in unexpected ways. The eval set captures all of it.</p>
+
+  <p>I almost think of it as an appreciating asset. The longer the product runs, the more valuable the eval set becomes. It's the accumulated knowledge of everything that can go wrong and everything that should go right. It would not be too much of a stretch to posit that there is probably going to be a company that is bought in the not-too-distant future for a robust eval set, much like companies are bought today for data.</p>
+
+  <p>Building an AI product without evals hamstrings a team in many ways. A product is locked into whatever it started with, they can't optimize costs, and can't test if a new model is better. With evals, swapping models becomes possible because the eval set is the contract. Any model that passes can power the product.</p>
+
+  <p>So what does the new testing pipeline look like?</p>
+
+  <p>The new pipeline looks like this: make a change (new model, new prompt, new guardrails), run the eval set to see if it works, fix what breaks, then A/B test to see if users prefer it.</p>
+
+  <p>A/B testing isn't going away. It's still the final arbiter of user preference. But it's no longer the only thing you'll need. Evals tell us what works before asking users which they prefer. Evals give granularity, showing exactly which parts broke and which improved, while A/B tests give aggregate metrics like engagement going up or down.</p>
+
+  <p>Most AI products are wrappers on a model. They have a slim, if not non-existent, moat. OpenAI can build travel planning features, research assistants, writing tools, and they're going to make a play for every vertical.</p>
+
+  <p>The eval set is the moat. How deep it goes determines how far ahead of the competition a product can get. It encodes taste, quality, edge cases, everything that makes the product distinct, the accumulated knowledge of what works and what doesn't for specific users doing specific things. Building an eval set that captures thousands of real user interactions and failure modes takes time. That's the asset that appreciates, that's what's hard to replicate and worth building.</p>
+
+
+</body>
+</html>
