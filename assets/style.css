@@ -14,3 +14,62 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+/* Navigation */
+.main-nav {
+  margin-bottom: 10px;
+  font-size: 16px;
+  text-align: left;
+}
+h1 {
+  margin-top: 0;
+}
+.nav-link {
+  color: #666;
+  font-weight: normal;
+}
+.nav-link:hover {
+  color: #111;
+}
+.nav-link.active {
+  color: #111;
+  font-weight: bold;
+}
+.nav-separator {
+  margin: 0 10px;
+  color: #999;
+}
+
+/* Writing page */
+.writing-intro {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 40px;
+}
+.writing-item {
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #eee;
+}
+.writing-item:last-child {
+  border-bottom: none;
+}
+.writing-item h2 {
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+.writing-item h2 a {
+  color: #111;
+}
+.writing-item h2 a:hover {
+  color: #0366d6;
+}
+.post-meta {
+  color: #666;
+  font-size: 14px;
+  margin: 5px 0 10px 0;
+}
+.post-excerpt {
+  color: #333;
+  margin-top: 10px;
+}

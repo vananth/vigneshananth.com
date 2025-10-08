@@ -1,0 +1,8 @@
+[
+  {
+    "title": "Evals Done Right Are An Appreciating Asset",
+    "url": "/writing/evals-appreciating-asset.html",
+    "date": "2025",
+    "excerpt": "I've been thinking about where evals fit into product development and how they interact with A/B tests. The problem: when an LLM sits in a product's critical path, A/B testing alone stops working. It tells you that engagement dropped, not what broke. This post is about why evals have become essential, how they differ from traditional A/B testing, and why building a robust eval set is actually a competitive advantage in a world where building something new has never been cheaper."
+  }
+]
