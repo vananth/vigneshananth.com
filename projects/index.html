@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Projects - Vignesh Ananth</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <nav class="main-nav">
+    <a href="/" class="nav-link">me</a>
+    <span class="nav-separator">|</span>
+    <a href="/writing" class="nav-link">writing</a>
+    <span class="nav-separator">|</span>
+    <a href="/projects" class="nav-link active">projects</a>
+  </nav>
+
+  <h1>Projects</h1>
+
+  <p class="writing-intro">You don't really understand something until you've shipped it.</p>
+
+  <div id="projects-list"></div>
+
+  <script>
+    fetch('/projects-index.json')
+      .then(response => response.json())
+      .then(projects => {
+        const container = document.getElementById('projects-list');
+        projects.forEach(project => {
+          const article = document.createElement('article');
+          article.className = 'writing-item';
+          article.innerHTML = `
+            <h2><a href="${project.url}">${project.title}</a></h2>
+            <p class="post-meta">${project.date}</p>
+            <p class="post-excerpt">${project.excerpt}</p>
+          `;
+          container.appendChild(article);
+        });
+      })
+      .catch(error => console.error('Error loading projects:', error));
+  </script>
+
+</body>
+</html>

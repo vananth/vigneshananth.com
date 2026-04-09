@@ -1,5 +1,11 @@
 [
   {
+    "title": "Building an Agent that Autonomously Trades",
+    "url": "/writing/agents-trade.html",
+    "date": "2025",
+    "excerpt": "A deep dive into the architecture behind an autonomous trading agent — how it reads signals, forms a thesis, and executes positions without a human in the loop."
+  },
+  {
     "title": "Evals Done Right Are An Appreciating Asset",
     "url": "/writing/evals-appreciating-asset.html",
     "date": "2025",
