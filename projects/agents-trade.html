@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>What if Agents Could Trade? - Vignesh Ananth</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .embed-container {
+      margin: 40px -100px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .embed-container iframe {
+      width: 100%;
+      height: 700px;
+      border: none;
+      display: block;
+    }
+    @media (max-width: 900px) {
+      .embed-container {
+        margin: 40px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="main-nav">
+    <a href="/" class="nav-link">me</a>
+    <span class="nav-separator">|</span>
+    <a href="/writing" class="nav-link">writing</a>
+    <span class="nav-separator">|</span>
+    <a href="/projects" class="nav-link active">projects</a>
+  </nav>
+
+  <h1>What if Agents Could Trade?</h1>
+
+  <p>An experiment in agentic stock trading. I gave an AI agent the tools, context, and autonomy to make real market decisions. It hasn't lost me all my money yet. It reads signals, forms a thesis, and executes positions without me in the loop.</p>
+
+  <div class="embed-container">
+    <iframe
+      src="https://stock-trader-dusky.vercel.app/showcasev2"
+      title="Agent Trading Showcase"
+      loading="lazy"
+    ></iframe>
+  </div>
+
+  <h2>How it works</h2>
+
+  <p>The agent runs on a daily cycle. It pulls market data and recent news, reasons over what it sees, and decides whether to open, hold, or close positions.</p>
+
+  <p>The stack is built around an LLM at the center, a set of tools for data retrieval and trade execution, and a memory layer so it can reason across days and react to past decisions, rather than just reacting to the moment.</p>
+
+  <p>For the full architecture, how the agent is structured, what tools it has access to, and what the memory layer looks like read on here — <a href="/writing/agents-trade.html">Building an Agent that Autonomously Trades</a>.</p>
+
+</body>
+</html>
