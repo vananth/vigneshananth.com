@@ -36,23 +36,23 @@
 
   <h1>What if Agents Could Trade?</h1>
 
-  <p>I have an agent running that trades stocks autonomously — reading signals, forming a thesis, and executing positions without me in the loop. Below is how it's been performing against the S&P 500.</p>
-
-  <h2>How it works</h2>
-
-  <p>The agent runs on a daily cycle. It pulls market data and recent news, reasons over what it sees, and decides whether to open, hold, or close positions. There's no human in the loop — it reads, thinks, and acts on its own.</p>
-
-  <p>The stack is intentionally simple: a Claude model at the center, a set of tools for data retrieval and trade execution, and a memory layer so it can reason across days rather than just reacting to the moment.</p>
-
-  <p>For the full architecture — how the agent is structured, what tools it has access to, and where it tends to go wrong — see <a href="/writing/agents-trade.html">Building an Agent that Autonomously Trades</a>.</p>
+  <p>An experiment in agentic stock trading. I gave an AI agent the tools, context, and autonomy to make real market decisions. It hasn't lost me all my money yet. It reads signals, forms a thesis, and executes positions without me in the loop.</p>
 
   <div class="embed-container">
     <iframe
-      src="https://stock-trader-dusky.vercel.app/showcase"
+      src="https://stock-trader-dusky.vercel.app/showcasev2"
       title="Agent Trading Showcase"
       loading="lazy"
     ></iframe>
   </div>
+
+  <h2>How it works</h2>
+
+  <p>The agent runs on a daily cycle. It pulls market data and recent news, reasons over what it sees, and decides whether to open, hold, or close positions.</p>
+
+  <p>The stack is built around an LLM at the center, a set of tools for data retrieval and trade execution, and a memory layer so it can reason across days and react to past decisions, rather than just reacting to the moment.</p>
+
+  <p>For the full architecture, how the agent is structured, what tools it has access to, and what the memory layer looks like read on here — <a href="/writing/agents-trade.html">Building an Agent that Autonomously Trades</a>.</p>
 
 </body>
 </html>
