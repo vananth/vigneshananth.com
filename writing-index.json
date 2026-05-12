@@ -1,9 +1,9 @@
 [
   {
-    "title": "Building an Agent that Autonomously Trades",
+    "title": "Balance Wheel: A Multi-Agent Hedge Fund",
     "url": "/writing/agents-trade.html",
-    "date": "2025",
-    "excerpt": "A deep dive into the architecture behind an autonomous trading agent — how it reads signals, forms a thesis, and executes positions without a human in the loop."
+    "date": "2026",
+    "excerpt": "The worst thing about trying to beat the market is that the boring people are probably right. Buy the S&P 500. And yet — I built a tiny hedge fund run by LLMs."
   },
   {
     "title": "Evals Done Right Are An Appreciating Asset",
