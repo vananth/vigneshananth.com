@@ -2,8 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Building an Agent that Autonomously Trades - Vignesh Ananth</title>
+  <title>Balance Wheel: A Multi-Agent Hedge Fund - Vignesh Ananth</title>
   <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    .diagram-embed {
+      margin: 40px -60px;
+    }
+    .diagram-embed iframe {
+      width: 100%;
+      height: 560px;
+      border: none;
+      border-radius: 12px;
+    }
+    @media (max-width: 820px) {
+      .diagram-embed {
+        margin: 40px 0;
+      }
+      .diagram-embed iframe {
+        height: 1800px;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -15,10 +34,86 @@
     <a href="/projects" class="nav-link">projects</a>
   </nav>
 
-  <h1>Building an Agent that Autonomously Trades</h1>
-  <p class="post-meta">2025</p>
+  <h1>Balance Wheel</h1>
+  <p class="post-meta">2026 &middot; A multi-agent hedge fund</p>
 
-  <p>Coming soon.</p>
+  <p>The worst thing about trying to beat the market is that the boring people are probably right. Buy the S&P 500. Keep buying it. Do nothing heroic. Touch grass.</p>
+
+  <p>I believe this advice. I also do not think I am secretly Jim Simons.</p>
+
+  <p>And yet, because the market has not personally humbled me enough, I still had the thought: what if I built something that could do slightly better?</p>
+
+  <p>More likely, I'll have fun trying. That is what led me to build Balance Wheel, my always-on trading agent.</p>
+
+  <p>I still think the sensible thing would have been to buy the index and close my laptop. Instead, I built a tiny hedge fund run by LLMs.</p>
+
+  <h2>How the Trading Machine Works</h2>
+
+  <p>I built Balance Wheel around three analyst agents, one portfolio manager agent, and a persistent memory layer that acts like a trading journal. The goal was to set it up like a real hedge fund, where analyst-level expertise is separated from the portfolio manager who makes the final trading decisions.</p>
+
+  <p>The analysts specialize in different sectors. Right now, they are split into tech, energy, and healthcare. Each one has its own coverage universe, market context, and decision framework. The job of each analyst is to produce a recommendation with reasoning, confidence, risks, and suggested sizing.</p>
+
+  <p>The portfolio manager is the overall operator. It takes in all of the analyst recommendations, understands the current portfolio position, looks at the broader market context, and then makes a decision for the portfolio.</p>
+
+  <div class="diagram-embed">
+    <iframe src="balance-wheel-diagram.html" scrolling="no" title="Balance Wheel agent loop diagram"></iframe>
+  </div>
+
+  <h2>The three pieces that matter</h2>
+
+  <p>The diagram above gets most of the system across. I'm not going to go box by box. All the code and prompts are <a href="https://github.com/vananth22/agents-trade">here</a> if you are curious.</p>
+
+  <p>The three parts that felt most important to get right were:</p>
+
+  <ul>
+    <li>Risk layer: don't do anything insane</li>
+    <li>Memory layer: the investment journal</li>
+    <li>Tracking performance: did it actually work?</li>
+  </ul>
+
+  <p>This is what makes it more than prompting an LLM: the agentic system has roles, memory, constraints, execution logic, and an audit trail.</p>
+
+  <h3>Risk layer: don't do anything insane</h3>
+
+  <p>LLMs can go rogue, and I wanted to set up a good set of guardrails to prevent this. I went with a deliberately boring choice for this: a deterministic risk engine.</p>
+
+  <p>The agents can recommend trades, but they do not get the final say. Before anything goes through, the proposed orders pass through a deterministic Python risk engine. It checks position size, sector exposure, cash reserves, number of trades, and total cash deployed in a single cycle. All of these are based on a set of predetermined rules.</p>
+
+  <p>This part of the system is intentionally unglamorous and not as autonomous. It keeps the whole system on the rails. The agents reason through messy market information, and the risk engine decides whether the trade is allowed.</p>
+
+  <h3>Memory layer: the investment journal</h3>
+
+  <p>The second thing I wanted was continuity. What good is an agent that starts from scratch every time it runs? There is a ton of value in carrying forward context: what it previously believed, what surprised it, where it was too early, and where it was overconfident.</p>
+
+  <p>This is also kind of how humans operate. We naturally build context over time. I remember what I thought last week, what surprised me, where I was too early, and where I was overconfident. That running context matters.</p>
+
+  <p>I gave the agent a lightweight version of this. Think of this as an investment journal for the agent.</p>
+
+  <p>After each run, the system records what happened: the recommendations, the portfolio manager's decisions, the trades that went through, the trades that were rejected, and how the portfolio moved. The reviewer then looks back at prior calls and writes down what seemed useful, what was wrong, and what patterns are starting to show up.</p>
+
+  <p>All of this gets fed into future runs, so the agents are not starting from zero every day. The tech analyst can carry forward lessons from prior tech calls. The portfolio manager can see where previous sizing decisions helped or hurt. The system starts to build a track record for itself.</p>
+
+  <h3>Tracking performance: did it actually work?</h3>
+
+  <p>Finally, the all-important question: does this thing actually work?</p>
+
+  <p>There are two parts to that question.</p>
+
+  <p>The first is whether the agent system works mechanically. Does the whole loop run end to end? Do the analysts produce useful recommendations? Does the portfolio manager make sensible decisions from those recommendations? Does the risk engine catch things it should catch? Can I look back across runs and understand why the system did what it did?</p>
+
+  <p>The second question is the obvious one: is it making money?</p>
+
+  <p>I track both.</p>
+
+  <p>On the system side, every run leaves a full audit trail. I can see what each analyst recommended, what the portfolio manager tried to do, what the risk engine rejected, what actually got executed, and how the portfolio changed afterward. That helps me debug the agent instead of just looking at a final return number and guessing what happened.</p>
+
+  <p>On the performance side, I track portfolio value, P&L versus the S&P 500, current holdings, and executed trades. This helps me figure out how it's actually performing.</p>
+
+  <p>The long-term goal is to get this closer to having a self-improvement loop. The nice thing about trading is that the feedback signal is real. You can write down whatever rationale you want, but eventually the portfolio either performs or it does not. That makes it possible to keep tightening the system against something concrete.</p>
+
+  <p>Now that you've gotten all this way, I'll let you in on a secret. I'm still paper trading as I iterate on this system before I unleash real money on it.</p>
+
+  <p>Stay tuned for when I actually do that.</p>
 
 </body>
 </html>
