@@ -5,22 +5,166 @@
   <title>Balance Wheel: A Multi-Agent Hedge Fund - Vignesh Ananth</title>
   <link rel="stylesheet" href="../assets/style.css">
   <style>
-    .diagram-embed {
+    .bw-diagram {
       margin: 40px -60px;
+      background: #f7f7f5;
+      border: 1px solid #e6e6e1;
+      border-radius: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      padding: 32px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+      color: #161616;
     }
-    .diagram-embed iframe {
-      width: 100%;
-      height: 560px;
+    .bw-diagram * { box-sizing: border-box; }
+    .bw-eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #6b6b6b;
+      font-weight: 700;
+      margin: 0 0 10px;
+    }
+    .bw-diagram h2 {
+      margin: 0;
+      font-size: clamp(24px, 4vw, 38px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      font-weight: 700;
       border: none;
-      border-radius: 12px;
+      padding: 0;
+    }
+    .bw-subtitle {
+      margin: 12px 0 24px;
+      color: #6b6b6b;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .bw-main-flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1.2fr auto 1fr auto 1fr auto 1fr;
+      gap: 12px;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+    .bw-card {
+      border: 1px solid #e3e3de;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+      padding: 16px;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .bw-card.bw-input    { background: #fcfcfb; }
+    .bw-card.bw-analysts { background: #f3f3f1; }
+    .bw-card.bw-pm       { background: #ffffff; }
+    .bw-card.bw-risk     { background: #eeeeeb; }
+    .bw-card.bw-exec     { background: #fcfcfb; }
+    .bw-label {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+      color: #161616;
+    }
+    .bw-copy {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #6b6b6b;
+      margin: 0;
+    }
+    .bw-pill-list { display: grid; gap: 6px; margin-top: 4px; }
+    .bw-pill {
+      background: #fafaf8;
+      border: 1px solid #dfdfd8;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #3a3a3a;
+      width: fit-content;
+    }
+    .bw-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b7b7b0;
+      font-size: 24px;
+      font-weight: 300;
+      font-style: normal;
+    }
+    .bw-memory {
+      margin-top: 16px;
+      padding: 20px 20px 24px;
+      background: #f5f5f2;
+      border: 1px dashed #9a9a92;
+      border-radius: 24px;
+    }
+    .bw-memory-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .bw-brain { font-size: 24px; line-height: 1; filter: grayscale(100%); }
+    .bw-memory-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+      color: #161616;
+    }
+    .bw-memory-subtitle {
+      margin: 2px 0 0;
+      color: #6b6b6b;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .bw-memory-flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1.2fr;
+      gap: 12px;
+      align-items: stretch;
+    }
+    .bw-memory-card {
+      background: #ffffff;
+      border: 1px solid #ddddd7;
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+    .bw-memory-card.bw-journal {
+      background: #fafaf8;
+      border-color: #9a9a92;
+    }
+    .bw-memory-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9a9a92;
+      font-size: 24px;
+      font-style: normal;
+    }
+    .bw-time {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #5f5f5a;
+      background: #efefeb;
+      border-radius: 999px;
+      padding: 4px 8px;
+      width: fit-content;
     }
     @media (max-width: 820px) {
-      .diagram-embed {
-        margin: 40px 0;
-      }
-      .diagram-embed iframe {
-        height: 1800px;
-      }
+      .bw-diagram { margin: 40px 0; }
+      .bw-main-flow, .bw-memory-flow { grid-template-columns: 1fr; }
+      .bw-arrow, .bw-memory-arrow { transform: rotate(90deg); min-height: 18px; }
     }
   </style>
 </head>
@@ -55,8 +199,69 @@
 
   <p>The portfolio manager is the overall operator. It takes in all of the analyst recommendations, understands the current portfolio position, looks at the broader market context, and then makes a decision for the portfolio.</p>
 
-  <div class="diagram-embed">
-    <iframe src="balance-wheel-diagram.html" scrolling="no" title="Balance Wheel agent loop diagram"></iframe>
+  <div class="bw-diagram">
+    <p class="bw-eyebrow">Balance Wheel</p>
+    <h2>the trading loop</h2>
+    <p class="bw-subtitle">The main flow makes the trade. The memory layer underneath keeps a persistent record of what happened and feeds that context into the next run.</p>
+
+    <div class="bw-main-flow">
+      <div class="bw-card bw-input">
+        <div class="bw-label">Inputs</div>
+        <p class="bw-copy">Market data, news, and the current portfolio.</p>
+      </div>
+      <i class="bw-arrow">→</i>
+      <div class="bw-card bw-analysts">
+        <div class="bw-label">Analysts</div>
+        <div class="bw-pill-list">
+          <span class="bw-pill">Tech</span>
+          <span class="bw-pill">Healthcare</span>
+          <span class="bw-pill">Energy</span>
+        </div>
+      </div>
+      <i class="bw-arrow">→</i>
+      <div class="bw-card bw-pm">
+        <div class="bw-label">Portfolio Manager</div>
+        <p class="bw-copy">Turns analyst opinions into an actual portfolio decision.</p>
+      </div>
+      <i class="bw-arrow">→</i>
+      <div class="bw-card bw-risk">
+        <div class="bw-label">Risk</div>
+        <p class="bw-copy">Checks sizing, concentration, cash reserves, and trade limits.</p>
+      </div>
+      <i class="bw-arrow">→</i>
+      <div class="bw-card bw-exec">
+        <div class="bw-label">Execution</div>
+        <p class="bw-copy">Approved trades are placed and portfolio outcomes are recorded.</p>
+      </div>
+    </div>
+
+    <div class="bw-memory">
+      <div class="bw-memory-head">
+        <span class="bw-brain">🧠</span>
+        <div>
+          <p class="bw-memory-title">Memory layer</p>
+          <p class="bw-memory-subtitle">This is the persistent memory of the system — what happened, what worked, and what should carry into the next run.</p>
+        </div>
+      </div>
+      <div class="bw-memory-flow">
+        <div class="bw-memory-card">
+          <div class="bw-label">Execution outcomes</div>
+          <p class="bw-copy">Captures what was bought, sold, rejected, and how the portfolio actually moved.</p>
+          <span class="bw-time">T day</span>
+        </div>
+        <i class="bw-memory-arrow">→</i>
+        <div class="bw-memory-card">
+          <div class="bw-label">Reviewer</div>
+          <p class="bw-copy">Looks back at prior calls, scores them, and asks whether the agents were actually right.</p>
+          <span class="bw-time">T+1 day</span>
+        </div>
+        <i class="bw-memory-arrow">→</i>
+        <div class="bw-memory-card bw-journal">
+          <div class="bw-label">Investment journal</div>
+          <p class="bw-copy">Records the full running memory of the system: recent trades, prior recommendations, critiques, patterns, and useful lessons from earlier runs.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <h2>The three pieces that matter</h2>
